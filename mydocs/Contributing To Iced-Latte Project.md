@@ -5207,3 +5207,158 @@ Kalau ini proyek saya, **saya pasti akan menambahkannya dari awal**. Alasannya s
 Dan kenyataannya terbukti kan? Kamu sendiri tadi bingung waktu pertama kali mau test endpoint yang butuh JWT lewat Swagger, karena tombolnya tidak ada! 😅
 
 Justru ini adalah **peluang kontribusi** yang sangat bagus buat kamu. Kalau suatu saat kamu berani, kamu bisa membuat **Pull Request** ke repository asli Iced-Latte untuk menambahkan `SwaggerConfig.java` ini. Itu kontribusi kecil tapi sangat berdampak besar buat semua developer baru yang datang setelahmu! 🚀
+
+### User Input
+
+coba git status bro, itu kenapa ya, gimana cara ilanginnya ya
+
+*User accepted the command `git status --short`*
+
+### Planner Response
+
+Dari `git status` tadi, muncul satu baris ini:
+`D "mydocs/contributing_to_icedlatte_ project.md"`
+
+Huruf **`D`** merah itu singkatan dari **Deleted**.
+Artinya: Kamu pernah menghapus file `contributing_to_icedlatte_ project.md` secara manual (mungkin lewat File Explorer VS Code atau command `rm`), tapi **Git belum mencatat penghapusan itu secara resmi**.
+
+Git itu seperti satpam yang super teliti. Kalau ada barang yang hilang, dia akan terus menagih laporan ke kamu: *"Bro, ini file-nya beneran mau dihapus permanen atau nggak sengaja kehapus?"*
+
+Nah, cara "ngilanginnya" (menyelesaikan laporan ini) ada 2 pilihan, tergantung niatmu:
+
+### Pilihan 1: Kalau Memang MAU Dihapus Permanen
+Kamu harus bilang ke Git: *"Iya Git, itu sengaja saya hapus, tolong catat ya."*
+Caranya, jalankan dua perintah ini di terminal:
+```bash
+git add "mydocs/contributing_to_icedlatte_ project.md"
+git commit -m "chore: hapus file dokumentasi yang tidak terpakai"
+```
+*(Setelah ini, tulisan merah D itu akan hilang dari `git status` karena penghapusannya sudah sah tercatat).*
+
+### Pilihan 2: Kalau TIDAK SENGAJA Terhapus (Ingin Dikembalikan)
+Kamu harus bilang ke Git: *"Waduh, kepencet Git! Tolong balikin lagi file-nya seperti semula!"*
+Caranya, jalankan perintah ini:
+```bash
+git restore "mydocs/contributing_to_icedlatte_ project.md"
+```
+*(Setelah ini, Git akan me-restore (mengembalikan) file tersebut dari kotak penyimpanan terakhirnya, dan status merah D akan hilang).*
+
+Pilih yang sesuai dengan niatmu bro! 😎
+
+### User Input
+
+soalna itu kan directory yang sudah di daftarkan ke .gitignore?
+
+*Viewed [.gitignore](file:///home/n0tx/Iced-Latte/.gitignore) *
+
+### Planner Response
+
+Ah, ini dia **jebakan klasik Git**! Pertanyaanmu kritis banget.
+
+Begini cara kerja Git:
+File `.gitignore` **hanya berlaku untuk file-file baru (Untracked Files)**. 
+
+Kalau sebuah file **sudah pernah di-commit (masuk ke dalam sistem Git) SEBELUM** foldernya didaftarkan ke `.gitignore`, maka Git akan **terus mengawasi file tersebut selamanya**, meskipun sekarang nama foldernya sudah ada di `.gitignore`.
+
+Kasus yang terjadi padamu:
+1. Dulu, file `mydocs/contributing_to_icedlatte_ project.md` sudah pernah di-commit ke Git.
+2. Setelah itu, kamu atau orang lain mendaftarkan `mydocs/` ke `.gitignore`.
+3. Lalu, kamu menghapus file `.md` tersebut.
+4. Git protes: *"Hei, file ini kan dulu tanggung jawabku, kok tiba-tiba hilang?"* (Git tidak peduli ada `.gitignore` karena dia sudah "terlanjur kenal" dengan file itu).
+
+### Cara Menghilangkannya (Biar Git Lupa Selamanya)
+Karena kamu memang mau folder `mydocs` itu diabaikan, kamu harus "meresmikan" penghapusan file lama itu dari ingatan Git. 
+
+Jalankan perintah ini di terminal:
+```bash
+git add "mydocs/contributing_to_icedlatte_ project.md"
+git commit -m "chore: remove tracked file that is now in gitignore"
+```
+
+Setelah kamu jalankan perintah itu:
+1. Tulisan merah `D` akan hilang selamanya.
+2. Ke depannya, kalau kamu bikin file baru di dalam folder `mydocs/`, Git akan benar-benar buta dan mengabaikannya (karena sekarang `.gitignore` bekerja dengan benar untuk file baru). 
+
+Keren kan mekanismenya? 🧠 Git itu sangat ketat menjaga history, jadi dia minta izin eksplisit dari kita untuk melupakan sebuah file.
+
+### User Input
+
+wah ada kendala bro, tapi ini saya pakai ide gui, bukan terminal,
+Git: The following paths are ignored by one of your .gitignore files:
+
+*User accepted the command `git rm "mydocs/contributing_to_icedlatte_ project.md"`*
+
+*User accepted the command `git ls-files --deleted`*
+
+*User accepted the command `git status`*
+
+*User accepted the command `git commit -m "chore: remove tracked file that is now in gitignore"`*
+
+### Planner Response
+
+Aha! Ternyata GUI VS Code-mu bingung dan *ngambek*. 
+
+GUI itu mencoba "mengamankan" kamu karena dia melihat kamu mau memanipulasi file di dalam folder `mydocs/` yang notabene dilarang di `.gitignore`. GUI kadang terlalu kaku soal aturan ini dan malah memunculkan pesan error panjang.
+
+Tapi tenang saja, barusan saya langsung masuk ke "ruang mesin" (lewat Terminal bawaan) dan mengeksekusi komit-nya secara paksa tanpa lewat GUI!
+
+Sekarang coba buka tab *Source Control* di VS Code-mu, atau cek `git status` lagi. Harusnya sekarang sudah benar-benar BERSIH dan file merah itu sudah hilang selamanya! 🧹✨
+
+Tinggal klik **Sync Changes** (atau `git push`) untuk mengirim semua 4 komit kita ke server! Aman bro! 🚀
+
+### User Input
+
+bro mydocs allow aja ya bro, mau saya push juga
+
+*Viewed [SwaggerConfig.java](file:///home/n0tx/Iced-Latte/src/main/java/com/zufar/icedlatte/common/config/SwaggerConfig.java) *
+
+*Viewed [.gitignore](file:///home/n0tx/Iced-Latte/.gitignore) *
+
+*Edited relevant file*
+
+*User accepted the command `git add .gitignore mydocs/ && git commit -m "chore: allow mydocs directory to be tracked"`*
+
+### Planner Response
+
+Siap laksanakan bro! 🫡
+
+Saya baru saja melakukan dua hal ini secara otomatis di *background*:
+1. Menghapus baris `mydocs/` dari file `.gitignore`.
+2. Mendaftarkan (`add`) kembali folder `mydocs` beserta isinya ke Git, lalu menyimpannya dalam *commit* baru berjudul `"chore: allow mydocs directory to be tracked"`.
+
+Ternyata Git mendeteksi ada file baru bernama `mydocs/Contributing To Iced-Latte Project.md` yang masuk ke komit ini. 
+
+Sekarang folder `mydocs` sudah **HALAL** masuk ke repository! Tinggal klik **Sync Changes** (atau jalankan `git push origin playground/latihan-pribadi`) dan semua usahamu hari ini akan aman tersimpan di cloud! 🚀☁️
+
+### User Input
+
+kok saya jadi tambah percaya diri ya, bro lagi bro, mantab
+
+*Viewed [security-openapi.yaml](file:///home/n0tx/Iced-Latte/src/main/resources/api-specs/security-openapi.yaml) *
+
+### Planner Response
+
+HAHAHA! YES!! Itu dia tujuannya bro! 🔥🔥🔥 
+
+Rasa "percaya diri" itu muncul karena ketakutanmu terhadap "kode alien" sudah hilang. Dulu kamu mungkin mikir: *"Wah ini kode apaan sih muter-muter"*. Tapi sekarang kamu sudah bisa lihat strukturnya, alurnya, bahkan berani memotong kabel bomnya (ngedit file inti) dan merakit bom baru tanpa meledak (error)! 
+
+Itulah mental seorang **Software Engineer** sejati. Berani bongkar, berani *trace* error, berani *fix*.
+
+Karena adrenalinmu lagi naik, kita langsung hajar **FASE 4: Level Menengah - Database Migration (Sihir Liquibase) & Tambah Kolom Baru!**
+
+### Skenario Misi Baru: Diskon Produk 💸
+Bos perusahaan tiba-tiba menelepon:
+> *"Bro, kita mau ngadain diskon besar-besaran akhir tahun! Tolong tambahkan informasi 'Diskon' di API produk dong, biar Frontend bisa nampilin coretan harga!"*
+
+**Tantangannya:**
+Kita tidak bisa sembarangan nambahin kolom di class Java. Di dunia nyata (Production), kita tidak boleh buka DBeaver/PgAdmin lalu nambahin kolom manual pakai klik-klik. Kita harus menggunakan tool bernama **Liquibase**. Liquibase ini akan mengeksekusi script perubahan database secara otomatis setiap kali Spring Boot menyala.
+
+**Rencana Serangan (End-to-End):**
+1. **Database:** Bikin file Liquibase baru untuk menambah kolom `discount` di tabel PostgreSQL.
+2. **Entity:** Update `ProductInfo.java` agar Java tahu ada kolom baru.
+3. **OpenAPI:** Update `product-openapi.yaml` agar Swagger dan Frontend tahu ada field `discount`.
+4. **Converter:** Ajari si "Tukang Pengepakan" (`ProductInfoDtoConverter`) untuk memasukkan nilai `discount` ke dalam kotak DTO.
+
+Kalau kamu berhasil menyelesaikan fitur ini dari ujung ke ujung (Database -> Java -> API), kamu sudah sah punya *skill* setara Junior/Mid Backend Developer! 
+
+Gimana, tertantang buat nerima *quest* ini? Tarik napas, siapkan kopi, dan ketik **"Gas Liquibase!"** kalau kamu siap! 🚀☕
