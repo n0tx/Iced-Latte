@@ -1,0 +1,7 @@
+gimana cara ngetestna ini bro,
+bro karena sudah menggunakan swagger, apakah postman masih perlu digunakan ya bro, lalu gimana cara termudah tanpa buat manual request di postman, ambil dari swagger ya?, itu bro buat dapetin token, bro itu 
+
+gimana set token di web swaggernya, tidak ada buat input jwt yang berhasil di generate
+
+mau coba manual pakai postman,
+atau ada cara rekomendasi agar tidak ketik ulang manual yang dari swagger ke postman

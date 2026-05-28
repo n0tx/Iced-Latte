@@ -104,3 +104,5 @@ logs/
 /src/main/resources/stripe.yaml
 /docker-compose.override.yml
 META-INF/
+
+mydocs/
