@@ -17,6 +17,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class IcedLatteApplication {
 
     public static void main(String[] args) {
+        System.out.println("\n=========================================");
+        System.out.println(">>> 🔥 RUNNING ON JAVA VERSION: " + System.getProperty("java.version") + " 🔥 <<<");
+        System.out.println("=========================================\n");
         SpringApplication.run(IcedLatteApplication.class, args);
     }
 }
