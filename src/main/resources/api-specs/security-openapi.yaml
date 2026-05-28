@@ -409,8 +409,14 @@ components:
           type: "string"
           format: "email"
           description: "User's email address."
+          example: "john@example.com"
         password:
-          $ref: "#/components/schemas/PasswordField"
+          type: "string"
+          description: "User's password."
+          example: "p@ss1logic11"
+      example:
+        email: "john@example.com"
+        password: "p@ss1logic11"
 
     UserAuthenticationResponse:
       type: "object"
