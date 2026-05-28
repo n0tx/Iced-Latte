@@ -40,7 +40,8 @@ public class PageableProductsProvider {
                                                         final Integer minimumAverageRating,
                                                         final List<String> brandNames,
                                                         final List<String> sellerNames,
-                                                        final String keyword) {
+                                                        final String keyword,
+                                                        final String originCountry) {
         int page = pageNumber != null ? pageNumber : paginationConfig.getDefaultPageNumber();
         int size = pageSize != null ? pageSize : paginationConfig.getProducts().getDefaultPageSize();
         String sortAttr = sortAttribute != null ? sortAttribute : paginationConfig.getProducts().getDefaultSortAttribute();
@@ -54,7 +55,8 @@ public class PageableProductsProvider {
                 minRatingSpec(minAvg),
                 brandNamesSpec(brandNames),
                 sellerNamesSpec(sellerNames),
-                nameContainsSpec(keyword)
+                nameContainsSpec(keyword),
+                originCountrySpec(originCountry)
         );
 
         Page<ProductInfo> rawPage = productInfoRepository

@@ -1,5 +1,6 @@
 package com.zufar.icedlatte.product.repository;
 
+import com.stripe.model.tax.Registration.CountryOptions.No;
 import com.zufar.icedlatte.product.entity.ProductInfo;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -36,5 +37,10 @@ public class ProductSpecifications {
         if (keyword == null || keyword.isBlank()) return NONE;
         String pattern = "%" + keyword.toLowerCase() + "%";
         return (r, _, cb) -> cb.like(cb.lower(r.get("name")), pattern);
+    }
+
+    public static Specification<ProductInfo> originCountrySpec(String originCountry) {
+        if (originCountry == null || originCountry.isBlank()) return NONE;
+        return (r, _, cb) -> cb.equal(cb.lower(r.get("originCountry")), originCountry.toLowerCase());
     }
 }

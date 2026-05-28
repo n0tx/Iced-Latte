@@ -67,14 +67,15 @@ public class ProductsEndpoint implements com.zufar.icedlatte.openapi.product.api
             @RequestParam(name = "minimum_average_rating", required = false) Integer minimumAverageRating,
             @RequestParam(name = "brand_names", required = false) List<String> brandNames,
             @RequestParam(name = "seller_names", required = false) List<String> sellerNames,
-            @RequestParam(name = "keyword", required = false) String keyword) {
+            @RequestParam(name = "keyword", required = false) String keyword,
+            @RequestParam(name = "origin_country", required = false) String originCountry) {
 
         getProductsRequestValidator.validate(pageNumber, pageSize, sortAttribute, sortDirection,
                 minPrice, maxPrice, minimumAverageRating, brandNames, sellerNames);
 
         return ResponseEntity.ok(pageableProductsProvider.getProducts(
                 pageNumber, pageSize, sortAttribute, sortDirection,
-                minPrice, maxPrice, minimumAverageRating, brandNames, sellerNames, keyword));
+                minPrice, maxPrice, minimumAverageRating, brandNames, sellerNames, keyword, originCountry));
     }
 
     @Override
