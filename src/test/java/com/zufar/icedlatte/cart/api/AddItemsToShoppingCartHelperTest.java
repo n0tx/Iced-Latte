@@ -97,7 +97,7 @@ class AddItemsToShoppingCartHelperTest {
         ProductInfo existingProduct = new ProductInfo(
                 existingProductId, 1L, "Existing coffee", "Existing description", BigDecimal.valueOf(2.5), 10, true,
                 BigDecimal.ZERO, 0, "brandName", "sellerName", "originCountry", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
 
         ShoppingCartItem existingItem = new ShoppingCartItem(
@@ -117,7 +117,7 @@ class AddItemsToShoppingCartHelperTest {
         ProductInfo newProduct = new ProductInfo(
                 newProductId, 1L, "New coffee", "New description", BigDecimal.valueOf(3.5), 8, true,
                 BigDecimal.ZERO, 0, "brandName", "sellerName", "originCountry", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
 
         ShoppingCartDto expectedShoppingCartDto = new ShoppingCartDto();
@@ -165,7 +165,7 @@ class AddItemsToShoppingCartHelperTest {
         ProductInfo product = new ProductInfo(
                 productId, 1L, "Coffee", "Desc", BigDecimal.valueOf(2.5), 10, true,
                 BigDecimal.ZERO, 0, "brand", "seller", "country", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
 
         ShoppingCartItem concurrentItem = new ShoppingCartItem(UUID.randomUUID(), firstCart, product, 1);
@@ -207,12 +207,12 @@ class AddItemsToShoppingCartHelperTest {
         ProductInfo conflictingProduct = new ProductInfo(
                 conflictingProductId, 1L, "Coffee A", "Desc", BigDecimal.valueOf(2.5), 10, true,
                 BigDecimal.ZERO, 0, "brand", "seller", "country", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
         ProductInfo newProduct = new ProductInfo(
                 newProductId, 1L, "Coffee B", "Desc", BigDecimal.valueOf(3.0), 5, true,
                 BigDecimal.ZERO, 0, "brand", "seller", "country", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
 
         ShoppingCart freshCart = new ShoppingCart();
@@ -265,7 +265,7 @@ class AddItemsToShoppingCartHelperTest {
         ProductInfo product = new ProductInfo(
                 productId, 1L, "Coffee", "Desc", BigDecimal.valueOf(2.5), 10, true,
                 BigDecimal.ZERO, 0, "brand", "seller", "country", 100, 10, 4, 25, 200, 20,
-                LocalDateTime.now(), 60, null
+                LocalDateTime.now(), 60, null, false
         );
 
         NewShoppingCartItemDto itemToAdd = new NewShoppingCartItemDto();

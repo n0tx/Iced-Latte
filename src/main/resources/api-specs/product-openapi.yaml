@@ -286,6 +286,7 @@ components:
         - discount
         - dateAdded
         - popularityScore
+        - isDecaf
       properties:
         id:
           type: "string"
@@ -369,6 +370,9 @@ components:
           type: "integer"
           format: "int32"
           description: "Computed popularity score based on sales volume and average rating."
+        isDecaf:
+          type: "boolean"
+          description: "Indicates whether the coffee product is decaffeinated."
 
     ProductListWithPaginationInfoDto:
       type: "object"

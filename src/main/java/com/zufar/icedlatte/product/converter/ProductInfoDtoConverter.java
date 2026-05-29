@@ -22,6 +22,7 @@ public interface ProductInfoDtoConverter {
     @Mapping(target = "averageRating", source = "averageRating", qualifiedByName = "roundAverageRatingValue")
     @Mapping(target = "dateAdded", source = "dateAdded", qualifiedByName = "localToOffsetDate")
     @Mapping(target = "productFileUrl", ignore = true)
+    @Mapping(target = "isDecaf", source = "decaf")
     ProductInfoDto toDto(ProductInfo entity);
 
     @Mapping(target = "products", source = "content")
