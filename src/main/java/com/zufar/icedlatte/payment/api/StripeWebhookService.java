@@ -59,8 +59,12 @@ public class StripeWebhookService {
     private void handleCompleted(Session session) {
         boolean created = orderCreator.createOrderAndDeleteCart(session);
         if (created) {
-            paymentEmailConfirmation.send(session);
-            log.info("payment.session.email.sent: sessionId={}", session.getId());
+            try {
+                paymentEmailConfirmation.send(session);
+                log.info("payment.session.email.sent: sessionId={}", session.getId());
+            } catch (Exception e) {
+                log.warn("payment.session.email.failed: sessionId={}, error={}", session.getId(), e.getMessage());
+            }
         } else {
             log.info("payment.session.already_processed: sessionId={}", session.getId());
         }

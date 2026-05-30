@@ -50,10 +50,12 @@ public class StripeSessionCreator {
         UUID userId = user.getId();
         ShoppingCartDto cart = shoppingCartProvider.getByUserId(userId);
 
+        String baseUrl = buildBaseUrl(request);
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setCustomerEmail(user.getEmail())
-                .setReturnUrl(buildReturnUrl(request))
+                .setSuccessUrl(baseUrl + "/orders?sessionId={CHECKOUT_SESSION_ID}")
+                .setCancelUrl(baseUrl + "/cart")
                 .addAllLineItem(lineItemConverter.toLineItems(cart.getItems()))
                 .addAllShippingOption(shippingOptions())
                 .putMetadata("userId", userId != null ? userId.toString() : "")
@@ -61,6 +63,9 @@ public class StripeSessionCreator {
 
         try {
             Session session = Session.create(params);
+            log.info("========== LINK PEMBAYARAN STRIPE ==========");
+            log.info("Silakan klik link ini untuk membayar: {}", session.getUrl());
+            log.info("============================================");
             return new SessionWithClientSecretDto()
                     .sessionId(session.getId())
                     .clientSecret(session.getClientSecret());
@@ -69,11 +74,10 @@ public class StripeSessionCreator {
         }
     }
 
-    private String buildReturnUrl(HttpServletRequest request) {
+    private String buildBaseUrl(HttpServletRequest request) {
         return UriComponentsBuilder.newInstance()
                 .scheme(request.getScheme())
                 .host(request.getHeader(HttpHeaders.HOST))
-                .path(RETURN_URI)
                 .build()
                 .toUriString();
     }
