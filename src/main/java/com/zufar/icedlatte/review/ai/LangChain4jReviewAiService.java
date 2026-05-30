@@ -25,6 +25,11 @@ class LangChain4jReviewAiService implements ReviewModerationService, ProductSumm
     public void moderate(String text) {
         try {
             var response = reviewAiService.moderate(text);
+            log.info("========== VONIS HAKIM AI (GEMINI) ==========");
+            log.info("Teks Review: {}", text);
+            log.info("Jawaban AI: {}", response);
+            log.info("=============================================");
+            
             if (!response.startsWith(OK)) {
                 var reason = response.contains(":") ?
                         response.substring(response.indexOf(':') + 1).trim() : response;
