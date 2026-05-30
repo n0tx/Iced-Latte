@@ -1,0 +1,27 @@
+curl -X 'POST' \
+  'http://localhost:8083/api/v1/products/fc88cd5d-5049-4b00-8d88-df1d9b4a3ce1/reviews' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIwNDcxMWM2ZS00YmQ4LTRkNzYtYTNmNi1mZDdiYjNjMDBmNGQiLCJzaWQiOiJhNjYwNjY1My1hOGNkLTRjNzUtOGZlMS03NjY0NjYyYmI0OGYiLCJzdWIiOiJqYW5lQGV4YW1wbGUuY29tIiwiaXNzIjoiaWNlZC1sYXR0ZSIsImF1ZCI6WyJpY2VkLWxhdHRlLWNsaWVudCJdLCJpYXQiOjE3ODAxMDkwMjAsImV4cCI6MTc4MDEwOTkyMH0.g23SoRaHy0vxFtjoe5UdlIJ_oGA9s8IWfE2LvNknLZuVhGC7ZC4sDvAKDw45Z7VS' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "Kopi ini rasanya kayak sampah, jijik banget minumnya, bikin sakit perut!",
+  "rating": 1
+}'
+
+
+Error: response status is 400
+
+Response body
+
+{
+  "message": "Creation of the product's review for the user with userId = '22222222-2222-2222-2222-222222222222' and the product with productId = 'fc88cd5d-5049-4b00-8d88-df1d9b4a3ce1' is denied. Delete the previous product's review 'b1000022-0000-0000-0000-000000000002' first.",
+  "httpStatusCode": 400,
+  "timestamp": "2026-05-30 09:46:47"
+}
+
+
+Hibernate: select pr1_0.id,pr1_0.ai_summary,pr1_0.created_at,pr1_0.dislikes_count,pr1_0.likes_count,pr1_0.product_id,pr1_0.rating,pr1_0.text,pr1_0.user_id from product_reviews pr1_0 where pr1_0.user_id=? and pr1_0.product_id=?
+2026-05-30 09:46:47,871 [tomcat-handler-25] WARN  c.z.i.r.e.h.ProductReviewExceptionHandler userId=22222222-2222-2222-2222-222222222222 correlationId=32b0933b1d904b3e
+                requestId=8bd5faed-4ff8-4cc3-959f-771bb702545b}} - exception.review.creation_denied: exceptionClass=DeniedProductReviewCreationException, status=400
+2026-05-30 09:46:47,872 [tomcat-handler-25] WARN  http.access                    userId=22222222-2222-2222-2222-222222222222 correlationId=32b0933b1d904b3e
+                requestId=8bd5faed-4ff8-4cc3-959f-771bb702545b}} - http.request.completed: method=POST, path=/api/v1/products/{productId}/reviews, status=400, duration_ms=53, client_ip=0:0:0:0:0:0:0:1, authenticated=true, outcome=CLIENT_ERROR

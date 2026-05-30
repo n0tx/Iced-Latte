@@ -1,0 +1,127 @@
+
+curl -X 'POST' \
+  'http://localhost:8083/api/v1/products/d1a2b3c4-0001-4000-8000-000000000004/reviews' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIwMWJmOTlhOS1mNWNhLTQwMGEtYmU2MC1hOGM4ZTQ5NGRjYTIiLCJzaWQiOiJmYTQzNTNjMy1kNzMwLTRiZDktOGQ5YS0yZWMyZjE1ZDYwNGQiLCJzdWIiOiJqb2huQGV4YW1wbGUuY29tIiwiaXNzIjoiaWNlZC1sYXR0ZSIsImF1ZCI6WyJpY2VkLWxhdHRlLWNsaWVudCJdLCJpYXQiOjE3ODAxMTY4NjEsImV4cCI6MTc4MDExNzc2MX0.ksTVugn4BChs0S_wR8UKKH0fcKmrSPH-fUlqlYApRZKXhEAUUEaGrJzfBB0NyOnG' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "text": "This marketplace is a scam! F*** you all, I will hunt the seller down and burn this place!!!",
+    "rating": 1
+}'
+
+200	
+Response body
+{
+  "productReviewId": "20967ec3-4fc9-4f77-a665-cd35b9c0b61f",
+  "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+  "productRating": 1,
+  "text": "This marketplace is a scam! F*** you all, I will hunt the seller down and burn this place!!!",
+  "createdAt": "2026-05-30T12:05:49.559597+07:00",
+  "userName": "John",
+  "userLastname": "Doe",
+  "likesCount": 0,
+  "dislikesCount": 0,
+  "aiSummary": null
+}
+
+
+curl -X 'GET' \
+  'http://localhost:8083/api/v1/products/d1a2b3c4-0001-4000-8000-000000000004/reviews?page=0' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJ...'
+
+200	
+Response body
+
+{
+  "reviewsWithRatings": [
+    {
+      "productReviewId": "c2000004-0000-0000-0000-000000000001",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 5,
+      "text": "Two of my favourite things in one glass. The layers are stunning and the taste is bold.",
+      "createdAt": "2026-05-30T04:52:21.978607Z",
+      "userName": "David",
+      "userLastname": "Brown",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "c2000004-0000-0000-0000-000000000002",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 1,
+      "text": "Matcha and espresso clash badly. The bitterness of both together is overwhelming.",
+      "createdAt": "2026-05-30T04:52:21.978607Z",
+      "userName": "Angelina",
+      "userLastname": "Jolie",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "c2000004-0000-0000-0000-000000000003",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 4,
+      "text": "Adventurous and delicious. The earthy matcha and bold espresso complement each other.",
+      "createdAt": "2026-05-30T04:52:21.978607Z",
+      "userName": "Olivia",
+      "userLastname": "Taylor",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "c2000004-0000-0000-0000-000000000004",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 3,
+      "text": "Interesting concept. Takes a few sips to appreciate but grows on you.",
+      "createdAt": "2026-05-30T04:52:21.978607Z",
+      "userName": "Sarah",
+      "userLastname": "Johnson",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "a0000004-0000-0000-0000-000000000001",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 5,
+      "text": "The layers are gorgeous and the taste is even better. Earthy matcha meets bold espresso perfectly.",
+      "createdAt": "2026-05-30T04:52:21.749855Z",
+      "userName": "Emily",
+      "userLastname": "Garcia",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "a0000004-0000-0000-0000-000000000002",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 5,
+      "text": "Sounds weird, tastes incredible. Converted me into a matcha fan.",
+      "createdAt": "2026-05-30T04:52:21.749855Z",
+      "userName": "Matthew",
+      "userLastname": "Lopez",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    },
+    {
+      "productReviewId": "a0000004-0000-0000-0000-000000000003",
+      "productId": "d1a2b3c4-0001-4000-8000-000000000004",
+      "productRating": 4,
+      "text": "Not for everyone but I loved the boldness of this combo.",
+      "createdAt": "2026-05-30T04:52:21.749855Z",
+      "userName": "Jane",
+      "userLastname": "Smith",
+      "likesCount": 0,
+      "dislikesCount": 0,
+      "aiSummary": null
+    }
+  ],
+  "page": 0,
+  "size": 10,
+  "totalElements": 7,
+  "totalPages": 1
+}

@@ -1,0 +1,45 @@
+curl -X 'POST' \
+  'http://localhost:8083/api/v1/products/d1a2b3c4-0001-4000-8000-000000000003/reviews' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIxZGI2ZTU0Yy1lYjFmLTRkMGYtODFlZC0wY2U3YWJlYTkxODgiLCJzaWQiOiJlZmUwZWNlZS1kNjgyLTRlNjgtOWEwMy03M2E0OGFlMzhkYzkiLCJzdWIiOiJqYW5lQGV4YW1wbGUuY29tIiwiaXNzIjoiaWNlZC1sYXR0ZSIsImF1ZCI6WyJpY2VkLWxhdHRlLWNsaWVudCJdLCJpYXQiOjE3ODAxMTA0MTgsImV4cCI6MTc4MDExMTMxOH0.734xnPpHAGT_G1BZyYSl8Ap_DRXrR91kf5TonhFcQ1lPIhMS7aZOzVeL8Ja0ghAG' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "Kopi ini rasanya kayak sampah, jijik banget minumnya, bikin sakit perut!",
+  "rating": 1
+}'
+
+200	
+Response body
+
+{
+  "productReviewId": "627dce91-f20d-4f0e-88fe-f33d94a664c7",
+  "productId": "d1a2b3c4-0001-4000-8000-000000000003",
+  "productRating": 1,
+  "text": "Kopi ini rasanya kayak sampah, jijik banget minumnya, bikin sakit perut!",
+  "createdAt": "2026-05-30T10:09:46.721102+07:00",
+  "userName": "Jane",
+  "userLastname": "Smith",
+  "likesCount": 0,
+  "dislikesCount": 0,
+  "aiSummary": null
+}
+
+Hibernate: insert into product_reviews (ai_summary,dislikes_count,likes_count,product_id,rating,text,user_id,id) values (?,?,?,?,?,?,?,?)
+Hibernate: UPDATE product p
+   SET average_rating = COALESCE((SELECT AVG(pr.rating)
+                                   FROM product_reviews pr
+                                  WHERE pr.product_id = p.id), 0)
+ WHERE p.id = ?
+
+Hibernate: UPDATE product p
+   SET reviews_count = (SELECT COUNT(pr.id)
+                          FROM product_reviews pr
+                         WHERE pr.product_id = p.id)
+ WHERE p.id = ?
+
+2026-05-30 10:09:46,782 [tomcat-handler-30] INFO  c.z.i.r.e.ProductReviewEndpoint userId=22222222-2222-2222-2222-222222222222 correlationId=d4f89ddff3704532
+                requestId=93fb8fb7-15c0-435d-8b8a-1f2e613a2a1a}} - review.created: reviewId=627dce91-f20d-4f0e-88fe-f33d94a664c7, productId=d1a2b3c4-0001-4000-8000-000000000003
+2026-05-30 10:09:46,782 [task-1] DEBUG c.z.i.r.ai.AiDisabledConfig    userId= correlationId=
+                requestId=}} - ai.moderation.skipped: ai.enabled=false
+2026-05-30 10:09:46,786 [tomcat-handler-30] INFO  http.access                    userId=22222222-2222-2222-2222-222222222222 correlationId=d4f89ddff3704532
+                requestId=93fb8fb7-15c0-435d-8b8a-1f2e613a2a1a}} - http.request.completed: method=POST, path=/api/v1/products/{productId}/reviews, status=200, duration_ms=93, client_ip=0:0:0:0:0:0:0:1, authenticated=true, outcome=SUCCESS
