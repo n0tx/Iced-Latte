@@ -8553,3 +8553,131 @@ Santai saja, silakan diresapi dulu pelan-pelan. Kalau kamu sudah siap untuk "tan
 2. **Misi B (Lokalisasi Indonesia):** Mulai meneliti dan menyiapkan *blueprint* (rancangan) untuk mengganti/menambah Stripe dengan **Midtrans**, khusus untuk *payment gateway* pasar Indonesia.
 
 Istirahat dulu, seruput kopinya, dan *take your time* bro! Kabari saja kalau sudah siap! ☕📜
+
+### User Input
+
+halo bro kita bisa ketemu lagi, dari Product Deep Dive Plan mana yang belum kita ulik ya
+
+*Viewed [product_deep_dive_plan.md](file:///home/n0tx/.gemini/antigravity/brain/969025f9-215c-4d76-a9e2-e8e74aad70b1/product_deep_dive_plan.md) *
+
+### Planner Response
+
+Halo bro! Bertemu lagi! ☕
+
+Menarik sekali kamu bertanya tentang dokumen **Product Deep-Dive Plan**. Kalau kita kilas balik, dokumen *master plan* itu kita buat di hari pertama, **TAPI KITA BELUM MENYENTUHNYA SAMA SEKALI!** 😂
+
+Kenapa? Karena kemarin kita langsung tergiur "melompat" ke fitur-fitur super canggih:
+1. Kita malah membedah **Arsitektur AI & Asynchronous Processing** (untuk auto-hapus *review* toxic).
+2. Lalu kita membedah **Stripe Payment Gateway & Webhook**.
+
+Meskipun melompat, secara tidak sadar kamu sebenarnya sudah menyelesaikan **Fase 1 (Bedah Anatomi)** dan **Fase 2 (Merusak & Debugging)** dari plan tersebut, tapi di modul *Review* dan *Payment*. 
+
+Nah, kalau kita melihat **Product Deep-Dive Plan**, rintangan utama yang belum kita kerjakan sama sekali adalah:
+
+### 🔥 FASE 4: Bikin Fitur Baru dari Nol (Full-Stack Backend Cycle)
+Misi besarnya adalah: **Menambahkan fitur "Product Category"**.
+Saat ini produk di *database* Iced-Latte itu cuma ada nama kopi, harga, dll, tapi tidak ada pengelompokannya (misal: *Coffee, Tea, Merchandise, Snack*).
+
+Kalau kita mengeksekusi misi ini, kamu akan mempraktekkan alur komplit seorang *Backend Engineer* di dunia nyata:
+1. Menulis *Migration SQL* pakai **Liquibase** (untuk menambah kolom di tabel `product`).
+2. Mengubah kode Java **Entity** (`ProductInfo.java`).
+3. Mengubah desain API di file **OpenAPI / Swagger YAML** (`product-openapi.yaml`).
+4. Menambahkan filter **JPA Criteria** di `ProductSpecifications.java` supaya Front-End bisa mencari produk berdasarkan kategorinya (contoh: `GET /products?category=Coffee`).
+
+Gimana bro? Apakah kamu siap memulai **Fase 4** merombak arsitektur tabel Produk dan API-nya dari hulu ke hilir? Atau mau pemanasan dulu di **Fase 3** (menambahkan filter sederhana)?
+
+### User Input
+
+siap fase 3 dulu bro
+
+*Viewed [ProductsEndpoint.java](file:///home/n0tx/Iced-Latte/src/main/java/com/zufar/icedlatte/product/endpoint/ProductsEndpoint.java) *
+
+*Viewed [PageableProductsProvider.java](file:///home/n0tx/Iced-Latte/src/main/java/com/zufar/icedlatte/product/api/PageableProductsProvider.java) *
+
+*Viewed [PaginationConfig.java](file:///home/n0tx/Iced-Latte/src/main/java/com/zufar/icedlatte/common/config/PaginationConfig.java) *
+
+*Grep searched codebase*
+
+*Viewed [application.yaml](file:///home/n0tx/Iced-Latte/src/main/resources/application.yaml) *
+
+*Grep searched codebase*
+
+### Planner Response
+
+Wah, siap laksanakan! Karena kamu berani mengambil tantangan **Fase 3: Modifikasi Fitur yang Ada (Edit Existing)**, kita akan sedikit merombak *source code* Iced-Latte! 🛠️
+
+Tapi ada rahasia kecil nih: ternyata parameter `origin_country` **sudah** diam-diam ada di *source code* (sepertinya developer Iced-Latte sudah menyelesaikannya lebih dulu). 
+
+Sebagai gantinya, kita akan mengeksekusi fitur yang jauh lebih keren dan **BELUM ADA** di filternya: **Filter Kopi Bebas Kafein (`is_decaf`)!** ☕🚫
+
+Di *database* kita, sudah ada kolom `is_decaf` (boolean), tapi fitur ini belum ditambahkan ke pencarian API. Kalau ini selesai, *Front-End* nanti bisa mencari kopi dengan memanggil: `GET /api/v1/products?is_decaf=true`.
+
+Kita akan melakukan 3 langkah modifikasi (*Edit Existing*):
+1. Mengubah urutan bawaan (*Default Sort*) dari `name` ke `price`.
+2. Menambah logika Filter `is_decaf` di *Specification Database*.
+3. Menyambungkan filter tersebut ke Controller dan Service Java.
+
+Mari kita eksekusi **Langkah 1 & 2** sekaligus!
+
+### Langkah 1: Ubah Default Sort (Biar yang tampil dari Termurah/Termahal, bukan Abjad)
+Buka file `src/main/resources/application.yaml`, cari baris ke-**145**.
+Ubah `default-sort-attribute: "name"` menjadi:
+```yaml
+    default-sort-attribute: "price"
+```
+
+### Langkah 2: Menambah Filter `is_decaf` di Spesifikasi Database
+Buka file `src/main/java/com/zufar/icedlatte/product/repository/ProductSpecifications.java`.
+Tambahkan *method* baru ini tepat di baris paling bawah (sebelum kurung kurawal penutup `}` paling akhir):
+
+```java
+    public static Specification<ProductInfo> isDecafSpec(final Boolean isDecaf) {
+        return ((root, query, criteriaBuilder) -> {
+            if (isDecaf == null) {
+                return null;
+            }
+            return criteriaBuilder.equal(root.get("isDecaf"), isDecaf);
+        });
+    }
+```
+
+Kabari saya kalau dua file ini sudah berhasil kamu edit! Nanti kita akan lanjut memodifikasi urat nadinya (Service dan Controller) agar *Front-End* bisa memakai filter barumu. 🚀🔥
+
+### User Input
+
+bro @[target/generated-sources/openapi/src/main/java/com/zufar/icedlatte/openapi/payment/api/PaymentApi.java]ini kan sebenarnya interface controller ya bro, yang digenerate dari @[src/main/resources/api-specs/payment-openapi.yaml], cmiiw, yang mau saya tanyakan itu kok ada package dari aplikasi ya bro, waktu buat openapi.yaml itu kan be dan fe belum ngoding itu bro, itu berarti ditambah manual mungkin ya, jadi di pikiran saya skenario nya agar tidak saling menyalahkan untuk bloker "be belum ready", maka be dan fe bertemu untuk membuat openapi.yml, jika jadi dan disepakati misal 1 fitur saya, fe bisa pakai swagger dari openapi.yml itu, dan be bisa dapat file interface controller untuk diimplmentasikan, @[/home/n0tx/Iced-Latte/target/generated-sources/openapi/src/main/java/com/zufar/icedlatte/openapi/payment/api/PaymentApi.java:L8-L10] 
+
+*Edited relevant file*
+
+*Viewed [user-openapi.yaml](file:///home/n0tx/Iced-Latte/src/main/resources/api-specs/user-openapi.yaml) *
+
+*Grep searched codebase*
+
+*Viewed [pom.xml](file:///home/n0tx/Iced-Latte/pom.xml) *
+
+### Planner Response
+
+Wah, pemahamanmu luar biasa tajam bro! 💯
+
+Skenario yang ada di pikiranmu itu **100% BENAR**. Itulah yang di dunia profesional disebut dengan **API-First Development**. 
+Alih-alih saling tunggu dan beralasan *"Saya nunggu Backend selesai dulu"*, Backend (BE) dan Frontend (FE) cukup bertemu sekali di awal sprint, berdebat dan merancang *contract* berupa file `openapi.yaml`. Setelah file YAML disepakati:
+- FE langsung pulang, baca YAML itu pakai *Mock Server* (atau Postman), dan mulai ngoding UI-nya seolah-olah BE sudah jadi.
+- BE langsung pulang, *generate* interface dari YAML itu, dan tinggal membuat *logic* (mengisi fungsi) dari interface tersebut.
+Tidak ada *blocker* sama sekali!
+
+### Lalu, dari mana asalnya `com.zufar.icedlatte.openapi...`?
+Jawabannya: **Itu tidak diketik manual, melainkan dikonfigurasi di `pom.xml` (Maven)!**
+
+Coba kamu intip file `pom.xml` milik Iced-Latte di baris ke-530an. Di sana ada *plugin* bernama `openapi-generator-maven-plugin`.
+
+Di dalam *plugin* itulah BE memberi instruksi kepada Java:
+> *"Hai Java, tolong baca file `api-specs/payment-openapi.yaml`. Terus, jadikan file itu sebagai kode Java. Nama package untuk Interface-nya tolong taruh di `<apiPackage>com.zufar.icedlatte.openapi.payment.api</apiPackage>`, sedangkan untuk DTO/Model-nya tolong taruh di `<modelPackage>com.zufar.icedlatte.openapi.dto</modelPackage>`."*
+
+Ditambah lagi ada konfigurasi sakti:
+`<interfaceOnly>true</interfaceOnly>`
+
+Artinya, Java tidak akan membuat *Controller* yang sudah ada isinya (karena isinya/logic-nya adalah tugas BE), melainkan hanya membuat **Kerangka Interface-nya saja** (`PaymentApi.java`). 
+
+Nanti, barulah BE membuat `PaymentEndpoint.java` (file asli milik kita) yang di-*implements* dari `PaymentApi` tersebut. Kalau BE lupa membuat suatu method atau salah tipe data, Java akan langsung melempar error *Compile*!
+
+Sangat rapi dan anti miskomunikasi kan? Makanya *tools* ini sangat populer di kalangan perusahaan *Tech Startups* dan *Enterprise*! 🚀
