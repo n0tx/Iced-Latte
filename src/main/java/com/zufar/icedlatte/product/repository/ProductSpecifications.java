@@ -43,4 +43,9 @@ public class ProductSpecifications {
         if (originCountry == null || originCountry.isBlank()) return NONE;
         return (r, _, cb) -> cb.equal(cb.lower(r.get("originCountry")), originCountry.toLowerCase());
     }
+
+    public static Specification<ProductInfo> isDecafSpec(Boolean isDecaf) {
+        if (isDecaf == null) return NONE;
+        return (r, _, cb) -> cb.equal(r.get("isDecaf"), isDecaf);
+    }
 }

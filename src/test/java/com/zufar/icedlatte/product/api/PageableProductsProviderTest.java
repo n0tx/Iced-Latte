@@ -50,7 +50,7 @@ class PageableProductsProviderTest {
         when(productInfoConverter.toProductPaginationDto(any())).thenReturn(mock(ProductListWithPaginationInfoDto.class));
 
         ProductListWithPaginationInfoDto result = productsProvider.getProducts(
-                1, 10, "name", "ASC", null, null, null, null, null, null, null);
+                1, 10, "name", "ASC", null, null, null, null, null, null, null, null);
 
         assertNotNull(result);
         verify(productInfoConverter, times(1)).toProductPaginationDto(any());

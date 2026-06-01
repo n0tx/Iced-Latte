@@ -142,7 +142,7 @@ pagination:
   default-page-number: 0
   products:
     default-page-size: 50
-    default-sort-attribute: "name"
+    default-sort-attribute: "price"
     default-sort-direction: "desc"
   reviews:
     default-page-size: 10

@@ -190,6 +190,12 @@ paths:
           required: false
           schema:
             type: "string"
+        - name: "is_decaf"
+          description: "Filter products by decaffeinated status (true for decaf, false for regular)."
+          in: "query"
+          required: false
+          schema:
+            type: "boolean"
       responses:
         "200":
           description: "Paginated list of products retrieved successfully."

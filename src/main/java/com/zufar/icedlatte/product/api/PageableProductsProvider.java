@@ -41,7 +41,8 @@ public class PageableProductsProvider {
                                                         final List<String> brandNames,
                                                         final List<String> sellerNames,
                                                         final String keyword,
-                                                        final String originCountry) {
+                                                        final String originCountry,
+                                                        final Boolean isDecaf) {
         int page = pageNumber != null ? pageNumber : paginationConfig.getDefaultPageNumber();
         int size = pageSize != null ? pageSize : paginationConfig.getProducts().getDefaultPageSize();
         String sortAttr = sortAttribute != null ? sortAttribute : paginationConfig.getProducts().getDefaultSortAttribute();
@@ -56,7 +57,8 @@ public class PageableProductsProvider {
                 brandNamesSpec(brandNames),
                 sellerNamesSpec(sellerNames),
                 nameContainsSpec(keyword),
-                originCountrySpec(originCountry)
+                originCountrySpec(originCountry),
+                isDecafSpec(isDecaf)
         );
 
         Page<ProductInfo> rawPage = productInfoRepository
