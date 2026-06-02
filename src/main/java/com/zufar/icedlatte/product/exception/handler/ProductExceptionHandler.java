@@ -20,6 +20,14 @@ public class ProductExceptionHandler {
 
     private final ApiErrorResponseCreator apiErrorResponseCreator;
 
+    @ExceptionHandler(com.zufar.icedlatte.product.exception.InvalidCategoryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResponse handleInvalidCategoryException(final com.zufar.icedlatte.product.exception.InvalidCategoryException exception) {
+        ApiErrorResponse apiErrorResponse = apiErrorResponseCreator.buildResponse(exception, HttpStatus.BAD_REQUEST);
+        log.warn("exception.product.invalid_category: exceptionClass={}, status=400", exception.getClass().getSimpleName());
+        return apiErrorResponse;
+    }
+
     @ExceptionHandler(ProductNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handleProductNotFoundException(final ProductNotFoundException exception) {

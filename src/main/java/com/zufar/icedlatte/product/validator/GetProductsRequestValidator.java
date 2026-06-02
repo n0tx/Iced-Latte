@@ -29,7 +29,12 @@ public class GetProductsRequestValidator {
                          final BigDecimal maxPrice,
                          final Integer minimumAverageRating,
                          final List<String> brandNames,
-                         final List<String> sellerNames) {
+                         final List<String> sellerNames,
+                         final String category) {
+
+        if (category != null && !com.zufar.icedlatte.product.enums.ProductCategory.isValid(category)) {
+            throw new com.zufar.icedlatte.product.exception.InvalidCategoryException(category);
+        }
 
         List<String> errors = new ArrayList<>(paginationParametersValidator.validate(pageNumber, pageSize, sortAttribute, sortDirection, ALLOWED_SORT_ATTRIBUTES_VALUES));
         errors.addAll(validateMinMaxPrice(minPrice, maxPrice));

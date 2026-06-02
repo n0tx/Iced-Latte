@@ -197,7 +197,7 @@ paths:
           schema:
             type: "boolean"
         - name: "category"
-          description: "Filter products by category (e.g. Coffee, Tea)."
+          description: "Filter products by category (e.g. Coffee, Tea, Matcha, Chocolate)."
           in: "query"
           required: false
           schema:
@@ -388,7 +388,7 @@ components:
           description: "Indicates whether the coffee product is decaffeinated."
         category:
           type: "string"
-          description: "The category of the product (e.g. Coffee, Tea, Merchandise)."
+          description: "The category of the product (e.g. Coffee, Tea, Matcha, Chocolate)."
 
     ProductListWithPaginationInfoDto:
       type: "object"
