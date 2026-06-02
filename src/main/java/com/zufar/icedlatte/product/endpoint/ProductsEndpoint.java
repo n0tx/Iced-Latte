@@ -56,6 +56,13 @@ public class ProductsEndpoint implements com.zufar.icedlatte.openapi.product.api
     }
 
     @Override
+    @GetMapping("/categories")
+    public ResponseEntity<com.zufar.icedlatte.openapi.dto.CategoriesDto> getAllCategories() {
+        return ResponseEntity.ok(new com.zufar.icedlatte.openapi.dto.CategoriesDto(
+                com.zufar.icedlatte.product.enums.ProductCategory.getAllDisplayNames()));
+    }
+
+    @Override
     @GetMapping
     public ResponseEntity<ProductListWithPaginationInfoDto> getProducts(
             @RequestParam(name = "page", required = false) Integer pageNumber,

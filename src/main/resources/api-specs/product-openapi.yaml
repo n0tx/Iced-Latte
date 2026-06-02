@@ -96,6 +96,27 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerError"
 
+  /api/v1/products/categories:
+    get:
+      tags:
+        - "Product"
+      summary: "List all product categories"
+      description: "Retrieve a list of all available product categories."
+      operationId: "getAllCategories"
+      responses:
+        "200":
+          description: "List of all product categories retrieved successfully."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoriesDto"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
   /api/v1/products:
     get:
       tags:
@@ -455,5 +476,17 @@ components:
         brands:
           type: "array"
           description: "List of product brands."
+          items:
+            type: "string"
+
+    CategoriesDto:
+      type: "object"
+      description: "List of available product categories."
+      required:
+        - categories
+      properties:
+        categories:
+          type: "array"
+          description: "List of product categories."
           items:
             type: "string"
