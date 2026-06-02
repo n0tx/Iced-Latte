@@ -196,6 +196,12 @@ paths:
           required: false
           schema:
             type: "boolean"
+        - name: "category"
+          description: "Filter products by category (e.g. Coffee, Tea)."
+          in: "query"
+          required: false
+          schema:
+            type: "string"
       responses:
         "200":
           description: "Paginated list of products retrieved successfully."
@@ -293,6 +299,7 @@ components:
         - dateAdded
         - popularityScore
         - isDecaf
+        - category
       properties:
         id:
           type: "string"
@@ -379,6 +386,9 @@ components:
         isDecaf:
           type: "boolean"
           description: "Indicates whether the coffee product is decaffeinated."
+        category:
+          type: "string"
+          description: "The category of the product (e.g. Coffee, Tea, Merchandise)."
 
     ProductListWithPaginationInfoDto:
       type: "object"

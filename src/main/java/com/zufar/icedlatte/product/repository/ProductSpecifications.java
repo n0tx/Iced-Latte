@@ -1,6 +1,5 @@
 package com.zufar.icedlatte.product.repository;
 
-import com.stripe.model.tax.Registration.CountryOptions.No;
 import com.zufar.icedlatte.product.entity.ProductInfo;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -47,5 +46,10 @@ public class ProductSpecifications {
     public static Specification<ProductInfo> isDecafSpec(Boolean isDecaf) {
         if (isDecaf == null) return NONE;
         return (r, _, cb) -> cb.equal(r.get("isDecaf"), isDecaf);
+    }
+
+    public static Specification<ProductInfo> categorySpec(String category) {
+        if (category == null || category.isBlank()) return NONE;
+        return (r, _, cb) -> cb.equal(cb.lower(r.get("category")), category.toLowerCase());
     }
 }

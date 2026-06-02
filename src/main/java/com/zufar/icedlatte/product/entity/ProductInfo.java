@@ -109,6 +109,9 @@ public class ProductInfo extends AuditableEntity {
     @Column(name = "is_decaf")
     private boolean isDecaf;
 
+    @Column(name = "category")
+    private String category;
+
     @Override
     public boolean equals(Object object) {
         if (this == object) {
