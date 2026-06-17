@@ -133,7 +133,7 @@ services:
     profiles: [monitoring]
     hostname: iced-latte-local
     environment:
-      - DD_API_KEY=${DD_API_KEY}
+      - DD_API_KEY=
       - DD_SITE=datadoghq.eu
       - DD_HOSTNAME=iced-latte-local
       - DD_OTLP_CONFIG_RECEIVER_PROTOCOLS_HTTP_ENDPOINT=0.0.0.0:4318
