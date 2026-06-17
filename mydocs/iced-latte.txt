@@ -1,0 +1,15 @@
+nanti coba tanya class ErrorResponse generate itu apa,
+apa bedanya dengan class ApiErrorResponse
+
+cara baca openapi file, misalnya: product-openapi.yml
+misalnya :
+bagian beberapa baris untuk fungsi yang berbeda sebagai contoh untuk dijelaskan, yang mana saja, tapi ambil beberapa
+baris yang bagus untuk di ketahui dan jelaskan
+
+berarti dia gak pake validasi yang dari jakarta itu ya, yang bisa di letakkan di model atau di dto,
+emang klo pake jakarta validasi itu taro di model atau dto ya,
+
+GetProductsRequestValidator
+
+buat yang perpus itu jadi ada ui cli nya, atau ui di terminal,
+java-fundamentals-practice
