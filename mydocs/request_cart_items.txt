@@ -1,0 +1,13 @@
+curl -X 'POST' \
+  'http://localhost:8083/api/v1/cart/items' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzM4NCJ9.eyJqdGkiOiIzMDBlNDg3MS03YWM1LTRlNDktYmM4NS1hNTBjM2U5OTBjZjQiLCJzaWQiOiIxMzZkMTI5YS02NzQ4LTQ5NWQtYTZjYy02MWM4Y2VlNDgzNTgiLCJzdWIiOiJqb2huQGV4YW1wbGUuY29tIiwiaXNzIjoiaWNlZC1sYXR0ZSIsImF1ZCI6WyJpY2VkLWxhdHRlLWNsaWVudCJdLCJpYXQiOjE3ODIwMDc4NTksImV4cCI6MTc4MjAwODc1OX0.7lb8NHLIBFaWFsKiV14XEzCp4Bmn5w_2-YRqbspI_7MYj3DaTjPPVeSKNyU1u7fB' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "items": [
+    {
+      "productId": "d1a2b3c4-0001-4000-8000-000000000010",
+      "productQuantity": 1
+    }
+  ]
+}'
