@@ -64,6 +64,7 @@ public class SpringSecurityConfiguration {
                         .requestMatchers(SecurityConstants.AUTH_LOGOUT_ALL_URL).authenticated()
                         .requestMatchers(SecurityConstants.SHOPPING_CART_URL).authenticated()
                         .requestMatchers(SecurityConstants.STRIPE_WEBHOOK_URL).permitAll()
+                        .requestMatchers("/api/v1/payment/midtrans/webhook").permitAll()
                         .requestMatchers(SecurityConstants.PAYMENT_URL).authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/password/reset").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/password/reset/confirm").permitAll()

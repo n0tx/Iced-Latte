@@ -106,6 +106,30 @@ public class OrderCreator {
         return true;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+    public boolean createOrderAndDeleteCartMidtrans(UUID userId, String sessionId) {
+        log.info("order.session.handling.midtrans: sessionId={}", sessionId);
+
+        Optional<Order> existingOrder = orderProvider.getOrderEntityByUserAndSession(userId, sessionId);
+        if (existingOrder.isPresent()) {
+            log.info("order.session.already_handled.midtrans: sessionId={}", sessionId);
+            return false;
+        }
+
+        ShoppingCartDto shoppingCartDto = shoppingCartProvider.getByUserIdOrThrow(userId);
+        UserEntity user = singleUserProvider.getUserEntityById(userId);
+
+        log.info("order.creating.midtrans: userId={}", userId);
+        Order orderEntity = createOrderEntityFromSession(user, shoppingCartDto, sessionId);
+        orderRepository.saveAndFlush(orderEntity);
+        log.info("order.created.midtrans: userId={}", userId);
+
+        shoppingCartRepository.deleteByUserId(userId);
+        log.info("cart.deleted.midtrans: userId={}", userId);
+
+        return true;
+    }
+
     private Order createOrderEntityFromSession(final UserEntity user,
                                                final ShoppingCartDto shoppingCartDto,
                                                final String sessionId) {

@@ -67,6 +67,7 @@ public class MidtransSessionCreator {
 
         requestBody.put("transaction_details", transactionDetails);
         requestBody.put("customer_details", customerDetails);
+        requestBody.put("custom_field1", userId.toString()); // Simpan userId untuk webhook nanti
 
         // 3. Tembak API Midtrans
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);

@@ -19,11 +19,18 @@ import java.util.Map;
 public class MidtransPaymentEndpoint {
 
     private final MidtransSessionCreator midtransSessionCreator;
+    private final com.zufar.icedlatte.payment.api.MidtransWebhookService midtransWebhookService;
 
     @PostMapping("/checkout")
     public ResponseEntity<Map<String, String>> processPayment() {
         String redirectUrl = midtransSessionCreator.createSession();
         log.info("midtrans.session.created: url={}", redirectUrl);
         return ResponseEntity.ok(Map.of("redirect_url", redirectUrl));
+    }
+
+    @PostMapping("/webhook")
+    public ResponseEntity<Void> processWebhook(@org.springframework.web.bind.annotation.RequestBody String payload) {
+        midtransWebhookService.processWebhook(payload);
+        return ResponseEntity.ok().build();
     }
 }
