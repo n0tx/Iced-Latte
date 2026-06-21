@@ -3,6 +3,7 @@ package com.zufar.icedlatte.payment.endpoint;
 import com.zufar.icedlatte.payment.api.MidtransSessionCreator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/payment/midtrans")
+@ConditionalOnProperty(name = "midtrans.enabled", havingValue = "true")
 public class MidtransPaymentEndpoint {
 
     private final MidtransSessionCreator midtransSessionCreator;

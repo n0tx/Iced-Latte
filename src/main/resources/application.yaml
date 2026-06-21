@@ -198,6 +198,7 @@ stripe:
   webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
 
 midtrans:
+  enabled: ${MIDTRANS_ENABLED:false}
   server-key: ${MIDTRANS_SERVER_KEY:placeholder_server}
   client-key: ${MIDTRANS_CLIENT_KEY:placeholder_client}
   is-production: ${MIDTRANS_IS_PRODUCTION:false}
