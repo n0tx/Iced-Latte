@@ -197,6 +197,13 @@ stripe:
   secret-key: ${STRIPE_SECRET_KEY:sk_test_placeholder}
   webhook-secret: ${STRIPE_WEBHOOK_SECRET:whsec_placeholder}
 
+midtrans:
+  server-key: ${MIDTRANS_SERVER_KEY:placeholder_server}
+  client-key: ${MIDTRANS_CLIENT_KEY:placeholder_client}
+  is-production: ${MIDTRANS_IS_PRODUCTION:false}
+  # Base URL Snap API untuk Sandbox
+  api-url: https://app.sandbox.midtrans.com/snap/v1/transactions
+
 #
 # Frontend Properties
 #
