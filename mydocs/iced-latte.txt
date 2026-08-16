@@ -13,3 +13,15 @@ GetProductsRequestValidator
 
 buat yang perpus itu jadi ada ui cli nya, atau ui di terminal,
 java-fundamentals-practice
+
+keren ini aplikasi, 
+banyak sesuatu yang menarik,
+yang harus di ketahui seorang middle developer,
+menaikkan level ke level yang lebih apa ya namanya?
+ini aplikasi production grade yang sudah jadi tinggal di analisa dan 
+digunakan kembali yang ingin digunakan,
+sebagai contoh, dan memahaminya juga tidak sembarangan,
+lumayan advanced
+
+bagaimana pengaturan .env jika aplikasi di deploy,
+biasanya dan pada project ini

@@ -1,0 +1,144 @@
+# Toko Kopi Iced Latte Backend
+1. menyiapkan terminal cli linux
+
+2. masuk ke directory project Iced-Latte
+$ cd Iced-Latte
+
+3. set requirement project java25 dan maven 3.9.14
+$ sdk env
+karena di existing linux system menggunakan java 17
+sdk env akan membaca .sdkmanrc (java25, maven 3.9.14) dan load di terminal session
+
+4. check java dan maven version
+$ java --version
+openjdk version "25" 2025-09-16
+$ mvn --version
+Apache Maven 3.9.14 (996c630dbc656c76214ce58821dcc58be960875b)
+
+5. jalankan docker untuk arsitektur project (postgres, redis, minio, minio-init)
+$docker compose up -d postgres redis minio minio-init
+
+6. aktifkan config .env pada project untuk terminal session
+$ set -a; source .env; set +a;
+
+7. maven build test compile
+$ mvn clean test-compile
+
+8. menjalankan Iced Latte spring boot
+$ mvn spring-boot:run
+
+
+biasa di sistem frontend itu gimana ya bro,
+soalnya saya pernah test khusus backend saja untuk payment,
+karena setup untuk midtrans saya harus masukin url dari ngrok
+jadi agak lama maka session jwtnya itu expired,
+itu jika di frontend untuk handle itu gimana carana ya bro,
+emang refreshtoken itu apa ya bro,
+emang gimana flowna ya bro, di fe itu kira-kira menurut kamu,
+user login, valid, dapat token.
+kan token ada expiredna, gimana itu ya bro,
+apa langsung user di kick jika token sudah expired padahal user
+masih login di dalam aplikasi dan tidak melakukan apapun dalam
+waktu yang lama sehingga session expired,
+itu gimana ya bro logic flowna biasana.
+
+klo di tanya orang atau interviewer saya bingung jawabnya itu bro
+
+oke bro saya baru test payment lagi bro, dengan stripes dan midtrans,
+ke 2 nya berhasil bro,
+jika saya ingin tau user ini tadi belanja apa saja dan bayar berapa nominalnya,
+itu dari mana ya bro, oh mungkin session_id di table order itu yang kita gunakan
+ya bro, untuk request lagi ke stripes atau midtrans ya
+
+
+# Setup Bayar Stripe
+mendapatkan secret key dari stripe, sk_test
+mendapatkan webhook key dari stripe, wh_key
+key di set dan ada di .env
+install stripe cli agar localhost bisa di hubungin
+atau menerima notifikasi dari stripe
+jika backend menerima notifikasi pembayaran dari midtrans,
+maka backend kemudian akan mengirimkan notifikasi ke user
+yang baru bayar belanjanya
+
+- regitster website stripe dan masuk ke sandbox
+- get secret_key dan wh_key
+- install dan jalankan stripe cli di localhost
+untuk listen dan menerima request dari stripe
+
+# Setup Bayar Midtrans
+mendapatkan server_key dari midtrans, Mid-server
+mendapatkan webhook key dari midtrans, Mid-client
+key di set dan ada di .env
+install ngrok agar localhost bisa di hubungin oleh midtrans
+atau set ip public di localhost menggunakan ngrok
+set alamat ngrok + url backend webhook di midtrans 
+website config agar dapat dihubungi oleh midtrans sewaktu menerima notifikasi
+pembayaran
+jika backend menerima notifikasi pembayaran dari midtrans,
+maka backend kemudian akan mengirimkan notifikasi ke user
+yang baru bayar belanjanya
+
+- regitster website midtrans dan masuk ke sandbox
+- get Mid-server dan Mid-client
+- install dan jalankan ngrok di localhost
+untuk listen dan menerima request dari midtrans
+- set url ngrok (public) + url backend webhook localhost
+
+# simple belanja di iced latte online shop
+pelanggan pilih barang,
+masukkan ke keranjang belanja,
+melakukan checkout,
+
+# Test Bayar Stripe
+
+pelanggan memilih product masuk ke keranjang belanja
+melakukan checkout
+backend meminta link pembayaran ke stripe,
+dan memberikannya ke user,
+di redirect ke halaman pembayaran dari stripe
+melakukan payment
+stripe mengirimkan pembayaran order berhasil
+backend listen di webhook
+backend menerima data dari stripe
+backend mencatat order yang baru dibayar
+
+
+# Test Bayar Midtrans
+
+pelanggan memilih product masuk ke keranjang belanja
+melakukan checkout
+backend meminta link pembayaran ke midtrans,
+dan memberikannya ke user,
+di redirect ke halaman pembayaran dari midtrans
+melakukan payment
+midtrans mengirimkan pembayaran order berhasil
+backend listen di webhook
+backend menerima data dari midtrans
+backend mencatat order yang baru dibayar
+
+untuk token jika habis waktu ngetest di postman,
+emang masa berlakunya hanya 15 menit,
+jadi untuk mendapatkan akses login selama 24 jam,
+coba request lagi ke refreshToken menggunakan refreshToken
+yang didapat waktu pertama kali login
+
+coba request ke endpoint refereshToken
+nanti backend akan buatkan token baru yang berlaku selama 24 jam
+
+
+# Update exisiting data buat testing transaksi pembelian produk dan pembayaran online
+
+sesuaikan seed dengan kirim email buat transaksi pembelian produk dan pembayaran online
+
+17.10
+
+suruh check git status dulu,
+coba suruh buat git commit, itu apa, saya lupa kemarin itu mau dan habis ngapain, 
+
+kyknya ini bro, 
+"# Update exisiting data buat testing transaksi pembelian produk dan pembayaran online"
+
+nanti test ini juga, buat token hanya 1 menit aja,
+mau test refereshToken, "coba request ke endpoint refereshToken"
+
