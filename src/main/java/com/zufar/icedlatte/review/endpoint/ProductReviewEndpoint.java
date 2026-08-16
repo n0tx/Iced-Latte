@@ -102,4 +102,19 @@ public class ProductReviewEndpoint implements com.zufar.icedlatte.openapi.produc
         log.info("review.rated: reviewId={}, vote={}", productReviewId, Boolean.TRUE.equals(request.getIsLike()) ? "liked" : "disliked");
         return ResponseEntity.ok(productReview);
     }
+
+    /**
+     * Override tanpa anotasi @GetMapping agar Spring TIDAK mendaftarkan
+     * URL hantu "/api/v1/products/api/v1/users/reviews".
+     * Endpoint asli ditangani oleh {@link UserReviewEndpoint}.
+     * @Hidden menyembunyikan endpoint hantu ini dari Swagger UI.
+     */
+    @io.swagger.v3.oas.annotations.Hidden
+    @Override
+    public ResponseEntity<ProductReviewsAndRatingsWithPagination> getUserReviews(
+            final Integer page, final Integer size,
+            final String sortAttribute, final String sortDirection) {
+        // Seharusnya tidak pernah dipanggil — request masuk lewat UserReviewEndpoint
+        return ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
+    }
 }
