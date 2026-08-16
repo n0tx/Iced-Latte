@@ -4,7 +4,7 @@ INSERT INTO public.user_details (id, first_name, last_name, birth_date, phone_nu
 VALUES ('11111111-1111-1111-1111-111111111111', 'John', 'Doe', '1985-01-15', '+12345678901', 'john@example.com', '$argon2id$v=19$m=256,t=1,p=1$K8w3nJ02G9fjy5ESwIUxaQ$XTSRhtGhvxrEG4/x0aREPmLBy2BdVDaKYY5zJMKqARM', 'a1a1a1a1-a1a1-a1a1-a1a1-a1a1a1a1a1a1', true, true, true, true);
 
 INSERT INTO public.user_details (id, first_name, last_name, birth_date, phone_number, email, password, address_id, account_non_expired, account_non_locked, credentials_non_expired, enabled)
-VALUES ('22222222-2222-2222-2222-222222222222', 'Jane', 'Smith', '1990-05-22', '+12345678902', 'jane@example.com', '$argon2id$v=19$m=256,t=1,p=1$K8w3nJ02G9fjy5ESwIUxaQ$XTSRhtGhvxrEG4/x0aREPmLBy2BdVDaKYY5zJMKqARM', 'b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2', true, true, true, true);
+VALUES ('22222222-2222-2222-2222-222222222222', 'Riki', 'Candra', '1990-05-22', '+12345678902', 'rcandra91@msn.com', '$argon2id$v=19$m=256,t=1,p=1$K8w3nJ02G9fjy5ESwIUxaQ$XTSRhtGhvxrEG4/x0aREPmLBy2BdVDaKYY5zJMKqARM', 'b2b2b2b2-b2b2-b2b2-b2b2-b2b2b2b2b2b2', true, true, true, true);
 
 INSERT INTO public.user_details (id, first_name, last_name, birth_date, phone_number, email, password, address_id, account_non_expired, account_non_locked, credentials_non_expired, enabled)
 VALUES ('33333333-3333-3333-3333-333333333333', 'Michael', 'Johnson', '1978-09-10', '+12345678903', 'michael@example.com', '$argon2id$v=19$m=256,t=1,p=1$K8w3nJ02G9fjy5ESwIUxaQ$XTSRhtGhvxrEG4/x0aREPmLBy2BdVDaKYY5zJMKqARM', 'c3c3c3c3-c3c3-c3c3-c3c3-c3c3c3c3c3c3', true, true, true, true);

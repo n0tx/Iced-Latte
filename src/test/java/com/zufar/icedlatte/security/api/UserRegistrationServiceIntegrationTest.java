@@ -56,7 +56,7 @@ class UserRegistrationServiceIntegrationTest extends IntegrationTestBase {
         userRegistrationService.register(firstRequest, MOCK_REQUEST);
 
         final UserRegistrationRequest duplicateRequest = new UserRegistrationRequest(
-                "Jane", "Smith", "duplicate@example.com", "Password456!"
+                "Riki", "Candra", "duplicate@example.com", "Password456!"
         );
 
         assertThrows(UserRegistrationException.class, () ->
