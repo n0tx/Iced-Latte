@@ -54,6 +54,8 @@ services:
     image: prom/prometheus:v2.51.0
     container_name: iced-latte-prometheus
     profiles: [loki]
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "127.0.0.1:9090:9090"
     volumes:
